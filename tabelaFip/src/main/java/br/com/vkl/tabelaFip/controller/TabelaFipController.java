@@ -24,6 +24,6 @@ public class TabelaFipController implements CommandLineRunner {
 		var tipoVeiculoSelecionado = frontEnd.exibeMenuTipoVeiculo();
 		List<DadosMarcas> dadosMarcas = marcasService.listarMarcas(tipoVeiculoSelecionado);
 
-		var marcaSelecionada = frontEnd.exibeMenuDois(dadosMarcas);
+		var marcaSelecionada = frontEnd.exibeMenuMarca(dadosMarcas);
 	}
 }

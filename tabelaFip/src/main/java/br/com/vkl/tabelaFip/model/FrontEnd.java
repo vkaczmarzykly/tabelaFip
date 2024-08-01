@@ -12,7 +12,7 @@ public class FrontEnd {
         return leitura.nextLine();
     }
 
-    public String exibeMenuDois(List<DadosMarcas> dadosMarcas) {
+    public String exibeMenuMarca(List<DadosMarcas> dadosMarcas) {
         dadosMarcas.forEach(m -> System.out.println("Marca: " + m.nome() + " \nCodigo: " + m.codigo() + "\n"));
         System.out.println("Digite o codigo da marca escolhida: ");
         return null;
