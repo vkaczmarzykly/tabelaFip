@@ -1,17 +1,20 @@
 package br.com.vkl.tabelaFip.service;
 
 import br.com.vkl.tabelaFip.model.ConsumirApiFipe;
+import br.com.vkl.tabelaFip.model.DadosMarcas;
 
-import java.util.Objects;
+import java.util.List;
 
 public class MarcasService {
 
     private final ConsumirApiFipe apiFipe = new ConsumirApiFipe();
 
+    private final ConverteDados conversor = new ConverteDados();
     private final String ENDERECO = "https://parallelum.com.br/fipe/api/v1/";
 
-    public void listarMarcas(String tipoVeiculoSelecionado) {
-        var jsonApiFipe = apiFipe.consumirApiFipe(ENDERECO + tipoVeiculoSelecionado + "/marcas");
-        System.out.println(jsonApiFipe);
+    public List<DadosMarcas> listarMarcas(String tipoVeiculoSelecionado) {
+        var json = apiFipe.consumirApiFipe(ENDERECO + tipoVeiculoSelecionado + "/marcas");
+        List<DadosMarcas> dadosMarcas = conversor.obterLista(json, DadosMarcas.class);
+        return dadosMarcas;
     }
 }
