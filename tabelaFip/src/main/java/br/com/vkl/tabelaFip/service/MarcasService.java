@@ -14,7 +14,6 @@ public class MarcasService {
 
     public List<DadosMarcas> listarMarcas(String tipoVeiculoSelecionado) {
         var json = apiFipe.consumirApiFipe(ENDERECO + tipoVeiculoSelecionado + "/marcas");
-        List<DadosMarcas> dadosMarcas = conversor.obterLista(json, DadosMarcas.class);
-        return dadosMarcas;
+        return conversor.obterLista(json, DadosMarcas.class);
     }
 }
