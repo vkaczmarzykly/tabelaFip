@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 public class FrontEnd {
 
@@ -27,6 +28,12 @@ public class FrontEnd {
                 .forEach(System.out::println);
 
         System.out.println("Digite um trecho do modelo desejado (ex. palio): ");
+        return leitura.nextLine();
+    }
+
+    public String exibeModeloFiltrado(Stream<ListaModelos> modeloSelecionado) {
+        modeloSelecionado.forEach(System.out::println);
+        System.out.println("Digite o código do modelo desejado: ");
         return leitura.nextLine();
     }
 }
