@@ -36,4 +36,10 @@ public class FrontEnd {
         System.out.println("Digite o código do modelo desejado: ");
         return leitura.nextLine();
     }
+
+    public void exibeMenuFinal(List<DetalhesModelo> listaDetalhesModelo) {
+        listaDetalhesModelo.stream()
+                .sorted(Comparator.comparing(DetalhesModelo::AnoModelo).reversed())
+                .forEach(System.out::println);
+    }
 }

@@ -1,9 +1,6 @@
 package br.com.vkl.tabelaFip.service;
 
-import br.com.vkl.tabelaFip.model.ConsumirApiFipe;
-import br.com.vkl.tabelaFip.model.DadosAnos;
-import br.com.vkl.tabelaFip.model.DadosModelos;
-import br.com.vkl.tabelaFip.model.ListaModelos;
+import br.com.vkl.tabelaFip.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +13,8 @@ public class ModelosService {
     private final ConverteDados conversor = new ConverteDados();
 
     private final String ENDERECO = "https://parallelum.com.br/fipe/api/v1/";
+
+    private List<DetalhesModelo> listaDetalheModelos = new ArrayList<>();
     public DadosModelos listarModelos(String tipoVeiculoSelecionado, String codigoMarca) {
         var json = apiFipe.consumirApiFipe(ENDERECO + tipoVeiculoSelecionado + "/marcas/" +
                                           codigoMarca + "/modelos");
@@ -28,10 +27,21 @@ public class ModelosService {
        return modeloSelecionado;
     }
 
-    public List<DadosAnos> listarAnoValorModelo(String tipoVeiculoSelecionado, String marcaSelecionada,
-                                     String modeloFiltradoEscolhido) {
+    public List<DadosAnos> listarAnoModelo(String tipoVeiculoSelecionado, String marcaSelecionada,
+                                           String modeloFiltradoEscolhido) {
         var json = apiFipe.consumirApiFipe(ENDERECO + tipoVeiculoSelecionado + "/marcas/" +
                 marcaSelecionada + "/modelos/" + modeloFiltradoEscolhido + "/anos");
         return conversor.obterLista(json, DadosAnos.class);
+    }
+
+    public List<DetalhesModelo> listarDetalhesModelo(String tipoVeiculoSelecionado, String marcaSelecionada, String modeloFiltradoEscolhido,
+                                                     List<DadosAnos> listaAnoModelo) {
+        for (int i = 0; i < listaAnoModelo.size(); i++) {
+            var json = apiFipe.consumirApiFipe(ENDERECO + tipoVeiculoSelecionado + "/marcas/" +
+                    marcaSelecionada + "/modelos/" + modeloFiltradoEscolhido + "/anos/" + listaAnoModelo.get(i).codigo());
+            var converte = conversor.obterDados(json, DetalhesModelo.class);
+            listaDetalheModelos.add(converte);
+        }
+        return listaDetalheModelos;
     }
 }

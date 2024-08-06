@@ -7,7 +7,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.Comparator;
 import java.util.List;
 
 @SpringBootApplication
@@ -34,10 +33,12 @@ public class TabelaFipController implements CommandLineRunner {
 		var modeloSelecionado = modelosService.buscarModelo(dadosModelos, trechoSelecionado);
 
 		var modeloFiltradoEscolhido = frontEnd.exibeModeloFiltrado(modeloSelecionado);
-		List<DadosAnos> listaAnoValorModelo = modelosService.listarAnoValorModelo(tipoVeiculoSelecionado, marcaSelecionada,
+		List<DadosAnos> listaAnoModelo = modelosService.listarAnoModelo(tipoVeiculoSelecionado, marcaSelecionada,
 				modeloFiltradoEscolhido);
 
-		listaAnoValorModelo.forEach(System.out::println);
+		List<DetalhesModelo> listaDetalhesModelo = modelosService.listarDetalhesModelo(tipoVeiculoSelecionado, marcaSelecionada,
+				modeloFiltradoEscolhido, listaAnoModelo);
+		frontEnd.exibeMenuFinal(listaDetalhesModelo);
 
 	}
 }
